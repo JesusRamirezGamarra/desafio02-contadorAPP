@@ -32,8 +32,8 @@ class _ContadoresAppState extends State<ContadoresApp> {
     });
   }
 
-
-  Widget build3(BuildContext context) {
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -41,49 +41,75 @@ class _ContadoresAppState extends State<ContadoresApp> {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text(
               '$total',
               style: TextStyle(fontSize: 40, color: Colors.yellow),
             ),
+  // Generar filas de contadores usando un `for`
             for (int i = 0; i < contadores.length; i++)
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min, 
+              if (i < 4)
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      'Contador${i + 1}',
-                      style: TextStyle(fontSize: 20, color: Colors.yellow),
-                    ),
-                    Text(
-                      '${contadores[i]}',
-                      style: TextStyle(fontSize: 12, color: Colors.yellow),
-                    ),
-                    ElevatedButton(
-                      onPressed: () => aumentarContador(i),
-                        style: ElevatedButton.styleFrom(
-                        backgroundColor : Colors.blue, // Color de fondo azul
-                        padding: EdgeInsets.zero, 
-                        minimumSize: Size(0,0), // Tamaño mínimo ( para Elevatedbutton para que no se expanda)
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(2), // Borde rectangular
-                        ),
-                        
-                      ),
-                      // child: Text("add"),
-                      child: Text(
-                        "add",
-                        style: TextStyle(fontSize: 15, color: Colors.white), // Corrección aquí
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    if (i < contadores.length - 1)
-                      Divider(color: Colors.grey, height: 20),
+                    // Si el índice es impar, omite la primera columna y solo agrega un contador
+                    if (i % 2 == 0) ...[
+                      buildContador("Contador ${i + 1}", contadores[i], i),
+                      SizedBox(width: 20), // Espacio entre contadores
+                      buildContador("Contador ${i + 2}", contadores[i + 1], i + 1),
+                    ],
                   ],
-                ),
-              ),
+                )
+              else
+                // Fila 3 con Contador 5 centrado
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Center(
+                        child: buildContador("Contador ${i + 1}", contadores[i], i),
+                      ),
+                    ),
+                  ],
+                ),            
+            // for (int i = 0; i < contadores.length; i++)
+            //   Padding(
+            //     padding: const EdgeInsets.symmetric(vertical: 10.0),
+            //     child: Column(
+            //       mainAxisSize: MainAxisSize.min, 
+            //       children: [
+            //         Text(
+            //           'Contador${i + 1}',
+            //           style: TextStyle(fontSize: 20, color: Colors.yellow),
+            //         ),
+            //         Text(
+            //           '${contadores[i]}',
+            //           style: TextStyle(fontSize: 12, color: Colors.yellow),
+            //         ),
+            //         ElevatedButton(
+            //           onPressed: () => aumentarContador(i),
+            //             style: ElevatedButton.styleFrom(
+            //             backgroundColor : Colors.blue, // Color de fondo azul
+            //             padding: EdgeInsets.zero, 
+            //             minimumSize: Size(0,0), // Tamaño mínimo ( para Elevatedbutton para que no se expanda)
+            //             shape: RoundedRectangleBorder(
+            //               borderRadius: BorderRadius.circular(2), // Borde rectangular
+            //             ),
+                        
+            //           ),
+            //           // child: Text("add"),
+            //           child: Text(
+            //             "add",
+            //             style: TextStyle(fontSize: 15, color: Colors.white), // Corrección aquí
+            //             textAlign: TextAlign.center,
+            //           ),
+            //         ),
+            //         if (i < contadores.length - 1)
+            //           Divider(color: Colors.grey, height: 20),
+            //       ],
+            //     ),
+            //   ),
           ],
         ),
       ),
@@ -102,8 +128,8 @@ class _ContadoresAppState extends State<ContadoresApp> {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
+  // @override
+  Widget build_Estatico(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
